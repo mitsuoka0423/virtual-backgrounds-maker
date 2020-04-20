@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="html2canvas.min.js"></script>
+  <script>
+    function draw () {
+      const target = document.querySelector("#capture");
+      html2canvas(target).then(canvas => {
+        document.body.appendChild(canvas);
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <div id="capture" style="padding: 10px; background: #f5da55">
+    <h4 style="color: #000; ">Hello world!</h4>
+    <input id="words" type="text" value="test" onkeyup="draw()" />
+  </div>
+</body>
+</html>
