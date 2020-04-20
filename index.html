@@ -4,18 +4,45 @@
   <script src="html2canvas.min.js"></script>
   <script>
     function draw () {
-      const target = document.querySelector("#capture");
-      html2canvas(target).then(canvas => {
+      const words = document.getElementById('words').value;
+      document.getElementById('right').innerHTML = words.substring(0, 20);
+      if (words.length > 20) {
+        document.getElementById('left').innerHTML = words.substring(20, 40);
+      } else {
+        document.getElementById('left').innerHTML = '';
+      }
+
+      html2canvas(document.querySelector("#capture")).then(canvas => {
         document.body.appendChild(canvas);
       });
     }
   </script>
+  <style>
+    .right-box {
+      position: absolute;
+      right: 0;
+    }
+    .left-box {
+      position: absolute;
+      left: 0;
+    }
+    .vertical {
+      writing-mode: vertical-rl;
+    }
+  </style>
 </head>
 
 <body>
-  <div id="capture" style="padding: 10px; background: #f5da55">
-    <h4 style="color: #000; ">Hello world!</h4>
-    <input id="words" type="text" value="test" onkeyup="draw()" />
+  <textarea id="words" maxlength="40" onkeyup="draw()">子供がいるのでうるさいかもしれません</textarea>
+
+  <div id="capture" style="width: 800px; height: 450px; padding: 16px; margin: 8px; background: #f5da55;">
+    <div class="right-box">
+      <h2 id="right" class="vertical"></h2>
+    </div>
+    <div class="left-box">
+      <h2 id="left" class="vertical"></h2>
+    </div>
   </div>
+  <script>draw();</script>
 </body>
 </html>
