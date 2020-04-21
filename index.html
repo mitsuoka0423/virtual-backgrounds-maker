@@ -5,26 +5,65 @@
   <script>
     function draw () {
       const words = document.getElementById('words').value;
-      document.getElementById('right').innerHTML = words.substring(0, 20);
-      if (words.length > 20) {
-        document.getElementById('left').innerHTML = words.substring(20, 40);
-      } else {
-        document.getElementById('left').innerHTML = '';
-      }
+      document.getElementById('right1').innerHTML = words.substring(0, 7);
+      document.getElementById('right2').innerHTML = words.substring(7, 14);
+      document.getElementById('left1').innerHTML = words.substring(14, 21);
+      document.getElementById('left2').innerHTML = words.substring(21, 28);
 
       html2canvas(document.querySelector("#capture")).then(canvas => {
-        document.body.appendChild(canvas);
+        document.getElementById('output').appendChild(canvas);
       });
     }
   </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@900&display=swap" rel="stylesheet">
+
   <style>
-    .right-box {
-      position: absolute;
-      right: 0;
+    textarea {
+      width: 800px;
+      height: 200px;
     }
-    .left-box {
+    .wrapper {
+      margin: 16px;
+      font-family: 'Noto Serif JP', serif;
+    }
+    .box {
+      position: relative;
+      width: 800px;
+      height: 450px;
+      border: 1px solid;
+    }
+    .right-box1 {
       position: absolute;
-      left: 0;
+      top: 16px;
+      right: 16px;
+      font-size: 40px;
+      font-weight: bold;
+      letter-spacing: 8px;
+    }
+    .right-box2 {
+      position: absolute;
+      top: 16px;
+      right: 80px;
+      font-size: 40px;
+      font-weight: bold;
+      letter-spacing: 8px;
+    }
+    .left-box1 {
+      position: absolute;
+      top: 16px;
+      left: 80px;
+      font-size: 40px;
+      font-weight: bold;
+      letter-spacing: 8px;
+    }
+    .left-box2 {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      font-size: 40px;
+      font-weight: bold;
+      letter-spacing: 8px;
     }
     .vertical {
       writing-mode: vertical-rl;
@@ -33,16 +72,31 @@
 </head>
 
 <body>
-  <textarea id="words" maxlength="40" onkeyup="draw()">子供がいるのでうるさいかもしれません</textarea>
+  <div class="wrapper">
+    <textarea id="words" maxlength="28" onkeyup="draw()">インターネットの調子が悪い</textarea>
+  </div>
 
-  <div id="capture" style="width: 800px; height: 450px; padding: 16px; margin: 8px; background: #f5da55;">
-    <div class="right-box">
-      <h2 id="right" class="vertical"></h2>
-    </div>
-    <div class="left-box">
-      <h2 id="left" class="vertical"></h2>
+  <div class="wrapper">
+    <div id="capture" class="box">
+      <div class="right-box1">
+        <div id="right1" class="vertical"></div>
+      </div>
+      <div class="right-box2">
+        <div id="right2" class="vertical"></div>
+      </div>
+      <div class="left-box1">
+        <div id="left1" class="vertical"></div>
+      </div>
+      <div class="left-box2">
+        <div id="left2" class="vertical"></div>
+      </div>
     </div>
   </div>
+
+  <div class="wrapper">
+    <div id="output"></div>
+  </div>
+
   <script>draw();</script>
 </body>
 </html>
