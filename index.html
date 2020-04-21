@@ -1,102 +1,104 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <script src="html2canvas.min.js"></script>
-  <script>
-    function draw () {
-      const words = document.getElementById('words').value;
-      document.getElementById('right1').innerHTML = words.substring(0, 7);
-      document.getElementById('right2').innerHTML = words.substring(7, 14);
-      document.getElementById('left1').innerHTML = words.substring(14, 21);
-      document.getElementById('left2').innerHTML = words.substring(21, 28);
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@900&display=swap"
+      rel="stylesheet"
+    />
 
-      html2canvas(document.querySelector("#capture")).then(canvas => {
-        document.getElementById('output').appendChild(canvas);
-      });
-    }
-  </script>
+    <style>
+      textarea {
+        width: 800px;
+        height: 200px;
+      }
+      .font {
+        font-size: 48px;
+        font-weight: bold;
+        letter-spacing: 12px;
+        font-family: "Noto Serif JP", serif;
+      }
+      .box {
+        position: relative;
+        width: 800px;
+        height: 450px;
+        border: 1px solid;
+      }
+      .right-box1 {
+        position: absolute;
+        top: 16px;
+        right: 32px;
+      }
+      .right-box2 {
+        position: absolute;
+        top: 16px;
+        right: 104px;
+      }
+      .left-box1 {
+        position: absolute;
+        top: 16px;
+        left: 104px;
+      }
+      .left-box2 {
+        position: absolute;
+        top: 16px;
+        left: 32px;
+      }
+      .vertical {
+        writing-mode: vertical-rl;
+      }
+    </style>
+  </head>
 
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@900&display=swap" rel="stylesheet">
+  <body>
+    <div class="wrapper">
+      <textarea id="words" maxlength="28" onkeyup="draw()">インターネットの調子が悪い</textarea>
+      <button onclick="download()">ダウンロード</button>
+    </div>
 
-  <style>
-    textarea {
-      width: 800px;
-      height: 200px;
-    }
-    .wrapper {
-      margin: 16px;
-      font-family: 'Noto Serif JP', serif;
-    }
-    .box {
-      position: relative;
-      width: 800px;
-      height: 450px;
-      border: 1px solid;
-    }
-    .right-box1 {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      font-size: 40px;
-      font-weight: bold;
-      letter-spacing: 8px;
-    }
-    .right-box2 {
-      position: absolute;
-      top: 16px;
-      right: 80px;
-      font-size: 40px;
-      font-weight: bold;
-      letter-spacing: 8px;
-    }
-    .left-box1 {
-      position: absolute;
-      top: 16px;
-      left: 80px;
-      font-size: 40px;
-      font-weight: bold;
-      letter-spacing: 8px;
-    }
-    .left-box2 {
-      position: absolute;
-      top: 16px;
-      left: 16px;
-      font-size: 40px;
-      font-weight: bold;
-      letter-spacing: 8px;
-    }
-    .vertical {
-      writing-mode: vertical-rl;
-    }
-  </style>
-</head>
 
-<body>
-  <div class="wrapper">
-    <textarea id="words" maxlength="28" onkeyup="draw()">インターネットの調子が悪い</textarea>
-  </div>
-
-  <div class="wrapper">
-    <div id="capture" class="box">
-      <div class="right-box1">
-        <div id="right1" class="vertical"></div>
-      </div>
-      <div class="right-box2">
-        <div id="right2" class="vertical"></div>
-      </div>
-      <div class="left-box1">
-        <div id="left1" class="vertical"></div>
-      </div>
-      <div class="left-box2">
-        <div id="left2" class="vertical"></div>
+    <div class="wrapper">
+      プレビュー
+    </div>
+    <div class="wrapper">
+      <div id="capture" class="box">
+        <div class="right-box1">
+          <div id="right1" class="vertical font"></div>
+        </div>
+        <div class="right-box2">
+          <div id="right2" class="vertical font"></div>
+        </div>
+        <div class="left-box1">
+          <div id="left1" class="vertical font"></div>
+        </div>
+        <div class="left-box2">
+          <div id="left2" class="vertical font"></div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="wrapper">
-    <div id="output"></div>
-  </div>
+    <script src="html2canvas.min.js"></script>
+    <script>
+      const link = document.createElement("a");
 
-  <script>draw();</script>
-</body>
+      function draw() {
+        const words = document.getElementById("words").value;
+        document.getElementById("right1").innerHTML = words.substring(0, 7);
+        document.getElementById("right2").innerHTML = words.substring(7, 14);
+        document.getElementById("left1").innerHTML = words.substring(14, 21);
+        document.getElementById("left2").innerHTML = words.substring(21, 28);
+
+        html2canvas(document.querySelector("#capture")).then((canvas) => {
+          link.href = canvas.toDataURL('image/png');
+          link.download = 'virtual-background.png';
+        });
+      }
+
+      function download() {
+        link.click();
+      }
+    </script>
+    <script>
+      draw();
+    </script>
+  </body>
 </html>
